@@ -1,4 +1,4 @@
-class Solution {
+class Solution027 {
     public int removeElement(int[] nums, int val) {
         int i = 0;
         for (int j=0; j<nums.length; j++) {
@@ -13,7 +13,7 @@ class Solution {
 class Main027 {
     
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Solution027 solution = new Solution027();
         
         int[] nums = {3,2,2,3};
         int val = 3;

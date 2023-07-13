@@ -7,7 +7,7 @@
 
 import java.util.ArrayList;
 
-class Solution {
+class Solution026 {
     public int removeDuplicates(int[] nums) {
         if(nums.length < 1) {
             return 0;
@@ -40,7 +40,7 @@ class Solution {
 class Main026 {
     
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Solution026 solution = new Solution026();
         
         int[] nums = {0,1,1,2,3,3,4,5,5,5};
         int res = solution.removeDuplicates(nums);
