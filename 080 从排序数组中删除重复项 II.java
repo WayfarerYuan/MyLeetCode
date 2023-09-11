@@ -20,7 +20,7 @@ class Solution080 {
     }
 }
 
-class Main {
+class Main080 {
     public static void main(String[] args) {
         // Input
         int[] nums = {1,1,1,2,2,3};
