@@ -6,6 +6,7 @@
 // 返回k。
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 class Solution026 {
     public int removeDuplicates(int[] nums) {
@@ -35,6 +36,35 @@ class Solution026 {
     //     }
     //     return i + 1;
     // }
+    public int removeDuplicates2(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        int numOfUniqueNums = 1;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (j >= nums.length) {
+                    return numOfUniqueNums;
+                }
+                if (nums[j] != nums[i]) {
+                    numOfUniqueNums += 1;
+                    replaceElements(nums, i, j);
+                    break;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(nums));
+        return numOfUniqueNums;
+    }
+
+    private void replaceElements(int[] nums, int start, int end) {
+        System.out.println("Replacing " + Arrays.toString(nums) + " from " + start + " to " + end);
+        if (start == end || end - start == 1) return;
+        for (int i = start + 1; i < end; i++) {
+            nums[i] = nums[end];
+        }
+    }
+
 }
 
 class Main026 {
@@ -43,7 +73,7 @@ class Main026 {
         Solution026 solution = new Solution026();
         
         int[] nums = {0,1,1,2,3,3,4,5,5,5};
-        int res = solution.removeDuplicates(nums);
+        int res = solution.removeDuplicates2(nums);
         System.out.println(res);
     }
 }
