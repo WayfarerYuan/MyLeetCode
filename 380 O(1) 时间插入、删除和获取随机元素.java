@@ -1,5 +1,7 @@
 import java.util.HashMap;
-
+import java.util.List;
+import java.util.Random;
+import java.util.ArrayList;
 class Main380 {
     public static void main(String[] args) {
         // 380. 时钟插入、删除和获取随机元素
@@ -17,24 +19,35 @@ class Main380 {
 
 class RandomizedSet {
     private HashMap<Integer, Integer> map;
+    private List<Integer> list;
 
     public RandomizedSet() {
         HashMap<Integer, Integer> map = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
         this.map = map;
+        this.list = list;
     }
 
     public boolean insert(int val) {
-        if (doesContain(val)) {
+        if (map.containsKey(val)) {
             return false;
         } else {
-            map.put(val, val);
+            list.add(val);
+            int indexInList = list.size() - 1;
+            map.put(val, indexInList);
             return true;
         }
     }
 
     public boolean remove(int val) {
-        if (doesContain(val)) {
-            map.remove(val);
+        if (map.containsKey(val)) {
+            int indexInList = map.get(val);
+            // list.remove(indexInList); // 这样写会导致后面的元素的indexInList都变了, 且时间复杂度为O(n)
+            int lastElement = list.get(list.size() - 1);
+            list.set(indexInList, lastElement); // 将最后一个元素复制到要删除的元素的位置上
+            map.put(lastElement, indexInList); // 更新最后一个元素的indexInList
+            list.remove(list.size() - 1); // 删除最后一个元素
+            map.remove(val); // 删除要删除的元素
             return true;
         } else {
             return false;
@@ -42,22 +55,9 @@ class RandomizedSet {
     }
 
     public int getRandom() {
-        int randomIndex = (int) (Math.random() * map.size());
-        int i = 0;
-        for (int key : map.keySet()) {
-            if (i == randomIndex) {
-                return key;
-            }
-            i++;
-        }
-        return -1;
-    }
-
-    private boolean doesContain(int val) {
-        if (map.containsKey(val)) {
-            return true;
-        } else {
-            return false;
-        }
+        int numOfElements = list.size();
+//        int randomIndex = (int) (Math.random() * numOfElements);
+        int randomIndex = new Random().nextInt(numOfElements);
+        return list.get(randomIndex);
     }
 }
